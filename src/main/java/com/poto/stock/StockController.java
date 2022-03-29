@@ -15,8 +15,6 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 public class StockController {
@@ -33,35 +31,28 @@ public class StockController {
         Double totalNav = 0.0;
         DecimalFormat df = new DecimalFormat("#.####");
         df.setRoundingMode(RoundingMode.HALF_UP);
-        List<Stock> stocks = stockRepository.findAll();
-        dataLines.add(new String[]{"stock code", "stock type", "price", "quantity", "Total"});
-        for (Stock stock : stocks) {
-            dataLines.add(new String[]{stock.getCode(), "common stock", stock.getLatest_price().toString(),
-                    stock.getQuantity().toString(), df.format(stock.getLatest_price() * stock.getQuantity())});
-            totalNav += stock.getLatest_price() * stock.getQuantity();
-        }
-        List<Options> options = optionsRepository.findAll();
-        for (Options option : options) {
-            dataLines.add(new String[]{option.getCode(),
-                    option.getType() == 1 ? "Call Option" : "Put Option", option.getOption_price().toString(),
-                    option.getQuantity().toString(), df.format(option.getOption_price() * option.getQuantity())});
-            totalNav += option.getOption_price() * option.getQuantity();
-        }
-        dataLines.add(new String[]{"", "", "", "NAV", df.format(totalNav)});
-        File csvOutputFile = new File("profolio.csv");
+
+        File csvOutputFile = new File("profolio.txt");
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-            dataLines.stream()
-                    .map(this::convertToCSV)
-                    .forEach(pw::println);
+            List<Stock> stocks = stockRepository.findAll();
+            pw.format("%15s %15s %15s %15s %15s %n", "stock code", "stock type", "price", "quantity", "Total");
+            for (Stock stock : stocks) {
+                pw.format("%15s %15s %15s %15s %15s %n", stock.getCode(), "common stock", stock.getLatest_price(),
+                        stock.getQuantity(), df.format(stock.getLatest_price() * stock.getQuantity()));
+                totalNav += stock.getLatest_price() * stock.getQuantity();
+            }
+            List<Options> options = optionsRepository.findAll();
+            for (Options option : options) {
+                pw.format("%15s %15s %15s %15s %15s %n", option.getCode(),
+                        option.getType() == 1 ? "Call Option" : "Put Option", option.getOption_price(),
+                        option.getQuantity(), df.format(option.getOption_price() * option.getQuantity()));
+                totalNav += option.getOption_price() * option.getQuantity();
+            }
+            pw.format("%15s %15s %15s %15s %15s %n", "", "", "", "NAV:", df.format(totalNav));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return "Exported file: "+csvOutputFile.getAbsolutePath();
-    }
-
-    public String convertToCSV(String[] data) {
-        return Stream.of(data)
-                .collect(Collectors.joining(","));
+        return "Exported file: " + csvOutputFile.getAbsolutePath();
     }
 
 }
