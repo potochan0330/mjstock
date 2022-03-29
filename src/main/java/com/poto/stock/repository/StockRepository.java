@@ -12,8 +12,11 @@ import java.util.List;
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
     List<Stock> findById(String id);
+
     List<Stock> findByCode(String code);
+
     List<Stock> findAll();
+
     Stock getByCode(String code);
 
     @Transactional

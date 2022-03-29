@@ -12,7 +12,9 @@ import java.util.List;
 public interface OptionsRepository extends JpaRepository<Options, Long> {
 
     List<Options> findById(String id);
+
     List<Options> findByType(Integer type);
+
     List<Options> findAll();
 
     @Transactional

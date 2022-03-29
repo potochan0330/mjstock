@@ -1,9 +1,10 @@
 package com.poto.stock.entity;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="STOCK")
+@Table(name = "STOCK")
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,7 @@ public class Stock {
     Double annual_sd;
 
     @Column
-    Timestamp create_time;
+    Timestamp created_time;
 
     public Stock() {
     }
@@ -93,11 +94,11 @@ public class Stock {
     }
 
     public Timestamp getCreate_time() {
-        return create_time;
+        return created_time;
     }
 
     public void setCreate_time(Timestamp create_time) {
-        this.create_time = create_time;
+        this.created_time = create_time;
     }
 
     public Integer getQuantity() {
@@ -119,7 +120,7 @@ public class Stock {
                 ", quantity=" + quantity +
                 ", expected_return=" + expected_return +
                 ", annual_sd=" + annual_sd +
-                ", create_time=" + create_time +
+                ", create_time=" + created_time +
                 '}';
     }
 }

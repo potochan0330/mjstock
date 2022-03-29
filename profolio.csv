@@ -1,0 +1,11 @@
+stock code,stock type,price,quantity,Total
+AAA,common stock,3.5297,204,720.0588
+BBB,common stock,404.9999,41,16604.9959
+CCC,common stock,3.1503,89,280.3767
+AAA,Call Option,219.5371,134,29417.9714
+AAA,Put Option,43.3724,34,1474.6616
+BBB,Call Option,210.1182,32,6723.7824
+BBB,Put Option,415.6598,25,10391.495
+CCC,Call Option,139.8351,149,20835.4299
+CCC,Put Option,4.8171,85,409.4535
+,,,NAV,86858.2252

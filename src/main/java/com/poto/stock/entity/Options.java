@@ -1,9 +1,10 @@
 package com.poto.stock.entity;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="OPTIONS")
+@Table(name = "OPTIONS")
 public class Options {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
