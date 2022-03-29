@@ -52,7 +52,7 @@ public class StockController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return "Exported file: " + csvOutputFile.getAbsolutePath();
+        return "Exported file: " + csvOutputFile.getAbsolutePath() + " \n";
     }
 
 }
