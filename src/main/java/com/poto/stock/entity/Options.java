@@ -23,6 +23,9 @@ public class Options {
     Integer quantity;
 
     @Column
+    Integer position;
+
+    @Column
     Double strike_price;
 
     @Column
@@ -74,14 +77,6 @@ public class Options {
         this.maturity_year = maturity_year;
     }
 
-    public Timestamp getCreate_time() {
-        return created_time;
-    }
-
-    public void setCreate_time(Timestamp create_time) {
-        this.created_time = create_time;
-    }
-
     public Double getOption_price() {
         return option_price;
     }
@@ -98,6 +93,22 @@ public class Options {
         this.quantity = quantity;
     }
 
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public Timestamp getCreated_time() {
+        return created_time;
+    }
+
+    public void setCreated_time(Timestamp created_time) {
+        this.created_time = created_time;
+    }
+
     @Override
     public String toString() {
         return "Options{" +
@@ -106,9 +117,10 @@ public class Options {
                 ", type=" + type +
                 ", option_price=" + option_price +
                 ", quantity=" + quantity +
+                ", position=" + position +
                 ", strike_price=" + strike_price +
                 ", maturity_year=" + maturity_year +
-                ", create_time=" + created_time +
+                ", created_time=" + created_time +
                 '}';
     }
 

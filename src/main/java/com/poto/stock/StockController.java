@@ -35,20 +35,22 @@ public class StockController {
         File csvOutputFile = new File("profolio.txt");
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             List<Stock> stocks = stockRepository.findAll();
-            pw.format("%15s %15s %15s %15s %15s %n", "stock code", "stock type", "price", "quantity", "Total");
+            pw.format("%15s %15s %15s %15s %15s %15s %n", "stock code", "stock type", "price", "quantity", "position", "market value");
             for (Stock stock : stocks) {
-                pw.format("%15s %15s %15s %15s %15s %n", stock.getCode(), "common stock", stock.getLatest_price(),
-                        stock.getQuantity(), df.format(stock.getLatest_price() * stock.getQuantity()));
-                totalNav += stock.getLatest_price() * stock.getQuantity();
+                pw.format("%15s %15s %15s %15s %15s %15s %n", stock.getCode(), "common stock", stock.getLatest_price(),
+                        stock.getQuantity(), stock.getPosition() == 1 ? "Long" : "Short",
+                        df.format(stock.getLatest_price() * stock.getQuantity() * stock.getPosition()));
+                totalNav += stock.getLatest_price() * stock.getQuantity() * stock.getPosition();
             }
             List<Options> options = optionsRepository.findAll();
             for (Options option : options) {
-                pw.format("%15s %15s %15s %15s %15s %n", option.getCode(),
+                pw.format("%15s %15s %15s %15s %15s %15s %n", option.getCode(),
                         option.getType() == 1 ? "Call Option" : "Put Option", option.getOption_price(),
-                        option.getQuantity(), df.format(option.getOption_price() * option.getQuantity()));
-                totalNav += option.getOption_price() * option.getQuantity();
+                        option.getQuantity(), option.getPosition() == 1 ? "Long" : "Short",
+                        df.format(option.getOption_price() * option.getQuantity() * option.getPosition()));
+                totalNav += option.getOption_price() * option.getQuantity() * option.getPosition();
             }
-            pw.format("%15s %15s %15s %15s %15s %n", "", "", "", "NAV:", df.format(totalNav));
+            pw.format("%15s %15s %15s %15s %15s %15s %n", "", "", "", "", "NAV:", df.format(totalNav));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

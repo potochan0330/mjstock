@@ -32,6 +32,9 @@ public class Stock {
     Double annual_sd;
 
     @Column
+    Integer position;
+
+    @Column
     Timestamp created_time;
 
     public Stock() {
@@ -93,20 +96,28 @@ public class Stock {
         this.annual_sd = annual_sd;
     }
 
-    public Timestamp getCreate_time() {
-        return created_time;
-    }
-
-    public void setCreate_time(Timestamp create_time) {
-        this.created_time = create_time;
-    }
-
     public Integer getQuantity() {
         return quantity;
     }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public Timestamp getCreated_time() {
+        return created_time;
+    }
+
+    public void setCreated_time(Timestamp created_time) {
+        this.created_time = created_time;
     }
 
     @Override
@@ -120,7 +131,8 @@ public class Stock {
                 ", quantity=" + quantity +
                 ", expected_return=" + expected_return +
                 ", annual_sd=" + annual_sd +
-                ", create_time=" + created_time +
+                ", position=" + position +
+                ", created_time=" + created_time +
                 '}';
     }
 }
